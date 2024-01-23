@@ -28,3 +28,5 @@ Push image to repository.
 # Contact your system administrator if you encounter issues in this step.
 docker push us-central1-docker.pkg.dev/test-project-miguel/xyz-liatrio-poc/xyz/xyz-liatrio:0.0.0
 ```
+
+[To add account roles](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling#required_roles)
