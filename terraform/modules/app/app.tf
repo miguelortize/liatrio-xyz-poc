@@ -22,7 +22,7 @@ data "google_client_config" "provider" {}
 data "google_container_cluster" "cluster" {
   name     = var.cluster_name
   location = var.region
-  project = var.project_id
+  project  = var.project_id
 }
 
 provider "helm" {
@@ -35,14 +35,10 @@ provider "helm" {
 
 
 provider "kubernetes" {
-  #  load_config_file = "false"
 
   host = "https://${data.google_container_cluster.cluster.endpoint}"
-  #   username = var.gke_username
-  #   password = var.gke_password
 
-  client_certificate     = data.google_container_cluster.cluster.master_auth.0.client_certificate
-  client_key             = data.google_container_cluster.cluster.master_auth.0.client_key
+  token                  = data.google_client_config.provider.access_token
   cluster_ca_certificate = base64decode(data.google_container_cluster.cluster.master_auth[0].cluster_ca_certificate)
 }
 
@@ -54,6 +50,15 @@ resource "helm_release" "nginx" {
   values = [
     file("${path.module}/nginx_values.yaml")
   ]
+}
+
+resource "helm_release" "app" {
+  name       = "xyz-liatrio"
+  chart      = "${path.module}/charts/xyz-liatrio"
+
+#   values = [
+#     file("${path.module}/nginx_values.yaml")
+#   ]
 }
 
 data "kubernetes_service" "nginx" {

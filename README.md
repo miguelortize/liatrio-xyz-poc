@@ -24,6 +24,8 @@ Before you can provision a GKE cluster using Terraform, you need to ensure that 
 
 ## Deploy your environment and app.
 
+```cd terraform/```
+
 ```terraform init```
 
 ```terraform plan```
