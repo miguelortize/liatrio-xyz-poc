@@ -19,6 +19,6 @@ output "kubernetes_cluster_host" {
 }
 
 output "app_load_balancer_endpoint" {
-  value       = module.deploy_xyz_app.app_load_balancer_endpoint
+  value       = "http://${module.deploy_xyz_app.app_load_balancer_endpoint}:80"
   description = "Load Balancer for app deployed."
 }
