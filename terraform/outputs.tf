@@ -17,3 +17,8 @@ output "kubernetes_cluster_host" {
   value       = module.deploy_xyz_infrastructure.kubernetes_cluster_host
   description = "GKE Cluster Host"
 }
+
+output "app_load_balancer_endpoint" {
+  value       = module.deploy_xyz_app.app_load_balancer_endpoint
+  description = "Load Balancer for app deployed."
+}

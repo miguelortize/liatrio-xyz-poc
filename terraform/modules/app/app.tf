@@ -20,9 +20,10 @@ variable "kubeconfig_path" {
 data "google_client_config" "provider" {}
 
 data "google_container_cluster" "cluster" {
-  name     = var.cluster_name
-  location = var.region
-  project  = var.project_id
+  depends_on = [var.kubeconfig_path]
+  name       = var.cluster_name
+  location   = var.region
+  project    = var.project_id
 }
 
 provider "helm" {
@@ -42,28 +43,28 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(data.google_container_cluster.cluster.master_auth[0].cluster_ca_certificate)
 }
 
-resource "helm_release" "nginx" {
-  name       = "nginx"
-  repository = "oci://registry-1.docker.io/bitnamicharts"
-  chart      = "nginx"
-
-  values = [
-    file("${path.module}/nginx_values.yaml")
-  ]
-}
-
-resource "helm_release" "app" {
-  name       = "xyz-liatrio"
-  chart      = "${path.module}/charts/xyz-liatrio"
+# resource "helm_release" "nginx" {
+#   name       = "nginx"
+#   repository = "oci://registry-1.docker.io/bitnamicharts"
+#   chart      = "nginx"
 
 #   values = [
 #     file("${path.module}/nginx_values.yaml")
 #   ]
+# }
+
+resource "helm_release" "app" {
+  name  = "xyz-liatrio"
+  chart = "${path.module}/charts/xyz-liatrio"
+
+  #   values = [
+  #     file("${path.module}/nginx_values.yaml")
+  #   ]
 }
 
-data "kubernetes_service" "nginx" {
-  depends_on = [helm_release.nginx]
+data "kubernetes_service" "app" {
+  depends_on = [helm_release.app]
   metadata {
-    name = "nginx"
+    name = "xyz-liatrio"
   }
 }
