@@ -30,8 +30,9 @@ Before you can provision a GKE cluster using Terraform, you need to ensure that 
 
 ```terraform plan```
 
+```terraform apply```
+
 ```
-terraform apply
 # Terraform should return outputs that look something like this:
 # Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 
