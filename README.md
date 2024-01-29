@@ -30,7 +30,20 @@ Before you can provision a GKE cluster using Terraform, you need to ensure that 
 
 ```terraform plan```
 
-```terraform apply```
+```
+terraform apply
+# Terraform should return outputs that look something like this:
+# Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+
+# Outputs:
+
+# app_load_balancer_endpoint = "http://35.193.191.180:80"
+# kubernetes_cluster_host = "35.224.5.255"
+# kubernetes_cluster_name = "test-project-miguel-gke"
+# project_id = "test-project-miguel"
+```
+
+Open the url for `app_load_balancer_endpoint` in your chrome and test the response.
 
 ## Destroy your environment:
 
