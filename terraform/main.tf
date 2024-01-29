@@ -11,6 +11,8 @@ module "deploy_xyz_app" {
   source          = "./modules/app"
   project_id      = var.project_id
   region          = var.region
+  repository      = var.repository
+  image_version   = var.image_version
   cluster_name    = module.deploy_xyz_infrastructure.kubernetes_cluster_name
   kubeconfig_path = module.deploy_xyz_infrastructure.kubeconfig_path
 }

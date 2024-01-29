@@ -24,3 +24,13 @@ variable "project_id" {
 variable "region" {
   description = "region"
 }
+
+# App Variables:
+
+variable "repository" {
+  description = "Container repository."
+}
+
+variable "image_version" {
+  description = "Image of container to be deployed."
+}

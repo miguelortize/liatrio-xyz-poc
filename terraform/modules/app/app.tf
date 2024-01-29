@@ -15,6 +15,14 @@ variable "kubeconfig_path" {
   description = "Path to the kubeconfig file for the GKE cluster"
 }
 
+variable "repository" {
+  description = "Container repository."
+}
+
+variable "image_version" {
+  description = "Image of container to be deployed."
+}
+
 # App to deploy
 
 data "google_client_config" "provider" {}
@@ -43,23 +51,19 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(data.google_container_cluster.cluster.master_auth[0].cluster_ca_certificate)
 }
 
-# resource "helm_release" "nginx" {
-#   name       = "nginx"
-#   repository = "oci://registry-1.docker.io/bitnamicharts"
-#   chart      = "nginx"
-
-#   values = [
-#     file("${path.module}/nginx_values.yaml")
-#   ]
-# }
-
 resource "helm_release" "app" {
   name  = "xyz-liatrio"
   chart = "${path.module}/charts/xyz-liatrio"
 
-  #   values = [
-  #     file("${path.module}/nginx_values.yaml")
-  #   ]
+  set {
+    name  = "image.repository"
+    value = var.repository
+  }
+
+  set {
+    name  = "image.tag"
+    value = var.image_version
+  }
 }
 
 data "kubernetes_service" "app" {
