@@ -6,7 +6,7 @@
 
 ## Deployment strategy:
 
-![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/GCP_infra.png)
+![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/terraform_liatrio.png)
 
 ## Prerequisite:
 Before you can provision a GKE cluster using Terraform, you need to ensure that you have the following prerequisites in place:
