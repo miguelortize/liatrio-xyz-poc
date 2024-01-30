@@ -1,20 +1,30 @@
-name: Bearer
+name: Bearer PR Check
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   rule_check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
       - name: Bearer
         uses: bearer/bearer-action@v2
         with:
-            skip-path: "terraform/*"
+          format: rdjson
+          output: rd.json
+          diff: true
+      - name: Run reviewdog
+        if: always()
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat rd.json | reviewdog -f=rdjson -reporter=github-pr-review
