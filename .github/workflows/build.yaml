@@ -4,6 +4,8 @@ name: Build and Push to Artifact Registry
 
 on:
   push:
+    paths:
+      - 'microservice/*'
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
@@ -34,7 +36,7 @@ jobs:
     # Configure Workload Identity Federation and generate an access token.
     - id: 'auth'
       name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v0'
+      uses: 'google-github-actions/auth@v2'
       with:
         token_format: 'access_token'
         workload_identity_provider: 'projects/105688756382/locations/global/workloadIdentityPools/liatrio-xyz-poc/providers/github'
