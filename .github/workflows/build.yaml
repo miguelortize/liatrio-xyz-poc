@@ -1,6 +1,6 @@
 # This workflow will build a docker container and publish it to Google Container Registry.
 
-name: Build and Deploy to GKE
+name: Build and Push to Artifact Registry
 
 on:
   push:
@@ -10,8 +10,9 @@ on:
 
 env:
   GAR_LOCATION: us-central1 # TODO: update region of the Artifact Registry
-  REPOSITORY: test-project-miguel/xyz-liatrio-poc/xyz # TODO: update to Artifact Registry docker repository
+  REPOSITORY: xyz-liatrio-poc # TODO: update to Artifact Registry docker repository
   IMAGE: xyz-liatrio
+  PROJECT_ID: test-project-miguel
 
 jobs:
   setup-build-publish-deploy:
