@@ -18,7 +18,7 @@ output "kubernetes_cluster_host" {
   description = "GKE Cluster Host"
 }
 
-output "app_load_balancer_endpoint" {
-  value       = "http://${module.deploy_xyz_bootstrap.app_load_balancer_endpoint}:80"
+output "argocd_load_balancer_endpoint" {
+  value       = "http://${module.deploy_xyz_bootstrap.argocd_load_balancer_endpoint}:80"
   description = "Load Balancer for app deployed."
 }

@@ -1,0 +1,158 @@
+# -- Replica count for the deployment. It is not advised to run more than one replica.
+replicaCount: 1
+image:
+  # -- Default image repository
+  repository: quay.io/argoprojlabs/argocd-image-updater
+  # -- Default image pull policy
+  pullPolicy: Always
+  # -- Overrides the image tag whose default is the chart appVersion
+  tag: ""
+
+# -- The deployment strategy to use to replace existing pods with new ones
+updateStrategy:
+  type: Recreate
+# -- ImagePullSecrets for the image updater deployment
+imagePullSecrets: []
+# -- Global name (argocd-image-updater.name in _helpers.tpl) override
+nameOverride: ""
+# -- Global fullname (argocd-image-updater.fullname in _helpers.tpl) override
+fullnameOverride: ""
+
+# -- Extra arguments for argocd-image-updater not defined in `config.argocd`.
+# If a flag contains both key and value, they need to be split to a new entry
+extraArgs: []
+
+# -- Extra environment variables for argocd-image-updater
+extraEnv: []
+  # - name: AWS_REGION
+  #   value: "us-west-1"
+
+# -- Extra K8s manifests to deploy for argocd-image-updater
+## Note: Supports use of custom Helm templates
+extraObjects: []
+
+# -- Init containers to add to the image updater pod
+initContainers: []
+
+# -- Additional volumeMounts to the image updater main container
+volumeMounts: []
+
+# -- Additional volumes to the image updater pod
+volumes: []
+
+config:
+  # -- API kind that is used to manage Argo CD applications (`kubernetes` or `argocd`)
+  applicationsAPIKind: ""
+
+  # Described in detail here https://argocd-image-updater.readthedocs.io/en/stable/install/running/#flags
+  argocd:
+    # -- Use the gRPC-web protocol to connect to the Argo CD API
+    grpcWeb: true
+    # -- Connect to the Argo CD API server at server address
+    serverAddress: ""
+    # -- If specified, the certificate of the Argo CD API server is not verified.
+    insecure: false
+    # -- If specified, use an unencrypted HTTP connection to the Argo CD API instead of TLS.
+    plaintext: false
+    # -- If specified, the secret with Argo CD API key will be created.
+    token: ""
+
+  # -- Disable kubernetes events
+  disableKubeEvents: false
+
+  # -- Username to use for Git commits
+  gitCommitUser: ""
+
+  # -- E-Mail address to use for Git commits
+  gitCommitMail: ""
+
+  # -- Changing the Git commit message
+  gitCommitTemplate: ""
+
+  # -- Argo CD Image Update log level
+  logLevel: "info"
+
+  # -- Argo CD Image Updater registries list configuration. More information [here](https://argocd-image-updater.readthedocs.io/en/stable/configuration/registries/)
+  registries: 
+    - name: Google Container Registry
+      api_url: https://us-central1-docker.pkg.dev/test-project-miguel/xyz-liatrio-poc/xyz-liatrio
+      prefix: gcr.io
+    #   ping: no
+    #   credentials: pullsecret:foo/bar
+    # - name: RedHat Quay
+
+  # -- Argo CD Image Updater ssh client parameter configuration.
+  sshConfig:
+    {}
+
+authScripts:
+  # -- Whether to mount the defined scripts that can be used to authenticate with a registry, the scripts will be mounted at `/scripts`
+  enabled: false
+  # -- Map of key-value pairs where the key consists of the name of the script and the value the contents
+  scripts: {}
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+
+  name: ""
+
+# -- Pod Annotations for the deployment
+podAnnotations: {}
+
+# -- Pod Labels for the deployment
+podLabels: {}
+
+# -- Pod security context settings for the deployment
+podSecurityContext: {}
+  # fsGroup: 2000
+
+# -- Security context settings for the deployment
+securityContext: {}
+
+rbac:
+  # -- Enable RBAC creation
+  enabled: true
+
+# -- Pod memory and cpu resource settings for the deployment
+resources: {}
+
+# -- Kubernetes nodeSelector settings for the deployment
+nodeSelector: {}
+
+# -- Kubernetes toleration settings for the deployment
+tolerations: []
+
+# -- Kubernetes affinity settings for the deployment
+affinity: {}
+
+# Metrics configuration
+metrics:
+  # -- Deploy metrics service
+  enabled: false
+  service:
+    # -- Metrics service annotations
+    annotations: {}
+    # -- Metrics service labels
+    labels: {}
+    # -- Metrics service port
+    servicePort: 8081
+  serviceMonitor:
+    # -- Enable a prometheus ServiceMonitor
+    enabled: false
+    # -- Prometheus ServiceMonitor interval
+    interval: 30s
+    # -- Prometheus [RelabelConfigs] to apply to samples before scraping
+    relabelings: []
+    # -- Prometheus [MetricRelabelConfigs] to apply to samples before ingestion
+    metricRelabelings: []
+    # -- Prometheus ServiceMonitor selector
+    selector: {}
+      # promtheus: kube-prometheus
+
+    # -- Prometheus ServiceMonitor namespace
+    namespace: ""
+    # -- Prometheus ServiceMonitor labels
+    additionalLabels: {}

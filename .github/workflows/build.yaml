@@ -3,6 +3,7 @@
 name: Build and Push to Artifact Registry
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'microservice/*'
@@ -15,6 +16,7 @@ env:
   REPOSITORY: xyz-liatrio-poc # TODO: update to Artifact Registry docker repository
   IMAGE: xyz-liatrio
   PROJECT_ID: test-project-miguel
+  ENVIRONMENT: dev
 
 jobs:
   setup-build-publish-deploy:
@@ -59,11 +61,11 @@ jobs:
     - name: Build
       run: |-
         docker build \
-          --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
+          --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$ENVIRONMENT" \
+          --build-arg GITHUB_SHA="$ENVIRONMENT" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
     # Push the Docker image to Google Artifact Registry
     - name: Publish
       run: |-
-        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
+        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$ENVIRONMENT"

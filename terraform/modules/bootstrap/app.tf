@@ -64,9 +64,17 @@ resource "helm_release" "app" {
     value = "LoadBalancer"
   }
 
-  # values = [
-  #   file("${path.module}/argocd_values.yaml")
-  # ]
+}
+
+resource "helm_release" "image_updater" {
+  name       = "argocd-image-updater"
+  repository = "https://argoproj.github.io/argo-helm"
+  namespace  = "argocd"
+  chart      = "argocd-image-updater"
+
+  values = [
+    file("${path.module}/values/image_updater.yaml")
+  ]
 
 }
 
