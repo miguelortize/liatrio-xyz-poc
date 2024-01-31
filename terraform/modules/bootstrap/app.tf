@@ -52,23 +52,28 @@ provider "kubernetes" {
 }
 
 resource "helm_release" "app" {
-  name  = "xyz-liatrio"
-  chart = "${path.module}/charts/xyz-liatrio"
+  name       = "argocd"
+  repository = "https://argoproj.github.io/argo-helm"
+  namespace  = "argocd"
+  chart      = "argo-cd"
+
+  create_namespace = true
 
   set {
-    name  = "image.repository"
-    value = var.repository
+    name  = "server.service.type"
+    value = "LoadBalancer"
   }
 
-  set {
-    name  = "image.tag"
-    value = var.image_version
-  }
+  # values = [
+  #   file("${path.module}/argocd_values.yaml")
+  # ]
+
 }
 
 data "kubernetes_service" "app" {
   depends_on = [helm_release.app]
   metadata {
-    name = "xyz-liatrio"
+    name = "argocd-server"
+    namespace = "argocd"
   }
 }

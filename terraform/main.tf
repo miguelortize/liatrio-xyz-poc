@@ -7,8 +7,8 @@ module "deploy_xyz_infrastructure" {
   cluster_name = "${var.project_id}-gke"
 }
 
-module "deploy_xyz_app" {
-  source          = "./modules/app"
+module "deploy_xyz_bootstrap" {
+  source          = "./modules/bootstrap"
   project_id      = var.project_id
   region          = var.region
   repository      = var.repository

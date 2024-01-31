@@ -62,6 +62,9 @@ Open the url for `app_load_balancer_endpoint` in your chrome and test the respon
 ### Optional to get the kubernetes login to your local:
 ```gcloud container clusters get-credentials $(terraform output -raw kubernetes_cluster_name) --region $(terraform output -raw region)```
 
+### Optional to login to the Admin page of ArgoCD
+```kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d```
+
 Authentication and Credentials: Configure authentication for Terraform to access your GCP account. You can use either Application Default Credentials (ADC) or a Service Account key file
 
 ## Possible errors
