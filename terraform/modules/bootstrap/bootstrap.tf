@@ -15,15 +15,8 @@ variable "kubeconfig_path" {
   description = "Path to the kubeconfig file for the GKE cluster"
 }
 
-variable "repository" {
-  description = "Container repository."
-}
 
-variable "image_version" {
-  description = "Image of container to be deployed."
-}
-
-# App to deploy
+# Bootstrap apps to deploy
 
 data "google_client_config" "provider" {}
 
