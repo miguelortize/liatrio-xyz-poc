@@ -67,6 +67,7 @@ resource "helm_release" "app" {
 }
 
 resource "helm_release" "image_updater" {
+  depends_on = [helm_release.app]
   name       = "argocd-image-updater"
   repository = "https://argoproj.github.io/argo-helm"
   namespace  = "argocd"
