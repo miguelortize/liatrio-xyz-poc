@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: us-central1-docker.pkg.dev/test-project-miguel/xyz-liatrio-poc/xyz-liatrio
+  repository: us-central1-docker.pkg.dev/test-project-miguel/xyz-liatrio-poc
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "dev"
