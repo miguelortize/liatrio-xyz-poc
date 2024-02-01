@@ -7,10 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.4] - 24-02-01
+
 ### Added
 
 - v0.0.4 Add Image Updater for ArgoCD.
-- V0.0.4 
+- V0.0.4 Configure ArgoCD Image Updater to read from pre configured Artifact Registry.
 
 ## [0.0.3] - 2024-01-31
 
