@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- v0.0.6 Add backend for terraform apply.
+- v0.0.6 Add pipeline for terraform apply.
+- v0.0.6 Update documentation.
+
+## [0.0.5] - 24-02-01
+
+### Added
+
 - v0.0.5 Deploy Applications from Terraform.
 
 ## [0.0.4] - 24-02-01
