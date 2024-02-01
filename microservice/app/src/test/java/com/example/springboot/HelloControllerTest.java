@@ -18,7 +18,7 @@ public class HelloControllerTest {
     public void shouldReturnDefaultMessage() throws Exception {
         mockMvc.perform(get("/"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.message").value("Automate all the things!"))
+            .andExpect(jsonPath("$.message").value("Automate all the things!:v0.2"))
             .andExpect(jsonPath("$.timestamp").isNumber());
     }
 }
