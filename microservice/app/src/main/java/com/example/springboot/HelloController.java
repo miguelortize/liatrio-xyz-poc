@@ -17,7 +17,7 @@ public class HelloController {
         logger.info("Received request for index");
 
         Map<String, Object> response = new HashMap<>();
-        response.put("message", "Automate all the things!:v0.2");
+        response.put("message", "Automate all the things!");
         response.put("timestamp", System.currentTimeMillis() / 1000);
 
         return response;
