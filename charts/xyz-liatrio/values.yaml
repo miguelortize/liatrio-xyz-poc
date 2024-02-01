@@ -8,7 +8,7 @@ image:
   repository: us-central1-docker.pkg.dev/test-project-miguel/xyz-liatrio-poc/xyz-liatrio
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "dev"
 
 imagePullSecrets: []
 nameOverride: ""
