@@ -11,6 +11,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - v0.0.6 Add pipeline for terraform apply.
 - v0.0.6 Update documentation.
 
+### Removed
+
+- v0.0.6 Removed kubernetes_manifest as it does not support creation of CRDs during new deployment of GKE cluster [see here](https://github.com/hashicorp/terraform-provider-kubernetes/issues/1775)
+
+### Changed
+
+- v0.0.6 Removed kubernetes_manifest in favor of [ArgoCD-Apps](https://artifacthub.io/packages/helm/argo/argocd-apps)
+
+### Added
+
+- v0.0.6 ArgoCD-Apps to deploy apps consistenly.
+- v0.0.6 Output service endpoint for testing of app.
+
 ## [0.0.5] - 24-02-01
 
 ### Added

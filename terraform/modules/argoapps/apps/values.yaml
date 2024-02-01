@@ -1,0 +1,19 @@
+applications: 
+- name: "xyz-liatrio-demo"
+  namespace: "argocd"
+  additionalAnnotations:
+    argocd-image-updater.argoproj.io/image-list: "liatrio=us-central1-docker.pkg.dev/test-project-miguel/xyz-liatrio-poc/xyz-liatrio:dev"
+    argocd-image-updater.argoproj.io/liatrio.force-update: "true"
+    argocd-image-updater.argoproj.io/liatrio.update-strategy: "digest"
+  source:
+    path: "charts/xyz-liatrio"
+    repoURL: "https://github.com/miguelortize/liatrio-xyz-poc"
+    targetRevision: "HEAD"
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: "default"
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+  project: "default"

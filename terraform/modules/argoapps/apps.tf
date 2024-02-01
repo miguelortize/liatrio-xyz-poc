@@ -30,6 +30,14 @@ data "google_container_cluster" "cluster" {
   project    = var.project_id
 }
 
+provider "helm" {
+  kubernetes {
+    host                   = "https://${data.google_container_cluster.cluster.endpoint}"
+    cluster_ca_certificate = base64decode(data.google_container_cluster.cluster.master_auth[0].cluster_ca_certificate)
+    token                  = data.google_client_config.provider.access_token
+  }
+}
+
 provider "kubernetes" {
 
   host = "https://${data.google_container_cluster.cluster.endpoint}"
@@ -40,38 +48,23 @@ provider "kubernetes" {
 
 # List your ArgoCD apps to deploy
 
-resource "kubernetes_manifest" "application_xyz_liatrio_demo" {
-  manifest = {
-    "apiVersion" = "argoproj.io/v1alpha1"
-    "kind" = "Application"
-    "metadata" = {
-      "annotations" = {
-        "argocd-image-updater.argoproj.io/image-list" = "liatrio=us-central1-docker.pkg.dev/test-project-miguel/xyz-liatrio-poc/xyz-liatrio:dev"
-        "argocd-image-updater.argoproj.io/liatrio.force-update" = "true"
-        "argocd-image-updater.argoproj.io/liatrio.update-strategy" = "digest"
-      }
-      "name" = "xyz-liatrio-demo"
-      "namespace" = "argocd"
-    }
-    "spec" = {
-      "destination" = {
-        "name" = ""
-        "namespace" = "default"
-        "server" = "https://kubernetes.default.svc"
-      }
-      "project" = "default"
-      "source" = {
-        "path" = "charts/xyz-liatrio"
-        "repoURL" = "https://github.com/miguelortize/liatrio-xyz-poc"
-        "targetRevision" = "HEAD"
-      }
-      "sources" = []
-      "syncPolicy" = {
-        "automated" = {
-          "prune" = false
-          "selfHeal" = false
-        }
-      }
-    }
+resource "helm_release" "argocd_apps" {
+  depends_on = [var.argocd_endpoint]
+  name       = "argocd-apps"
+  repository = "https://argoproj.github.io/argo-helm"
+  namespace  = "argocd"
+  chart      = "argocd-apps"
+
+  values = [
+    file("${path.module}/apps/values.yaml")
+  ]
+
+}
+
+data "kubernetes_service" "argocd_apps" {
+  depends_on = [helm_release.argocd_apps]
+  metadata {
+    name      = "xyz-liatrio-demo"
+    namespace = "default"
   }
 }

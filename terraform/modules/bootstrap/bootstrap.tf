@@ -75,7 +75,7 @@ resource "helm_release" "image_updater" {
 data "kubernetes_service" "app" {
   depends_on = [helm_release.app]
   metadata {
-    name = "argocd-server"
+    name      = "argocd-server"
     namespace = "argocd"
   }
 }

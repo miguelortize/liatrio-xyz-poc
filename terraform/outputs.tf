@@ -22,3 +22,9 @@ output "argocd_load_balancer_endpoint" {
   value       = "http://${module.deploy_xyz_bootstrap.argocd_load_balancer_endpoint}:80"
   description = "Load Balancer for app deployed."
 }
+
+output "xyz_app_endpoint" {
+  value       = "http://${module.deploy_xyz_apps.xyz_app_endpoint}:80"
+  description = "Load Balancer for app deployed."
+}
+
