@@ -1,4 +1,6 @@
-Build step to create an executable JAR.
+# Build step to create an executable JAR Manually.
+
+### Please keep in mind since version v0.0.2 of this repository this has been automated and is no longer necessary unless you want to test new features.
 
 ```
 # This will create a /target folder where your .jar files will be stored.
@@ -19,14 +21,14 @@ Docker step to build and tag your image.
 
 ```
 # Add your image version here based on semantic versioning (major.minor.patch) 
-docker build -t us-central1-docker.pkg.dev/test-project-miguel/xyz-liatrio-poc/xyz/xyz-liatrio:0.0.0 .
+docker build -t us-central1-docker.pkg.dev/test-project-miguel/xyz-liatrio-poc/xyz/xyz-liatrio:dev .
 ```
 
 Push image to repository.
 
 ```
 # Contact your system administrator if you encounter issues in this step.
-docker push us-central1-docker.pkg.dev/test-project-miguel/xyz-liatrio-poc/xyz/xyz-liatrio:0.0.0
+docker push us-central1-docker.pkg.dev/test-project-miguel/xyz-liatrio-poc/xyz/xyz-liatrio:dev
 ```
 
 [To add account roles](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling#required_roles)
