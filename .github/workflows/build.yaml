@@ -3,7 +3,6 @@
 name: Build and Push to Artifact Registry
 
 on:
-  workflow_dispatch:
   push:
     paths:
       - 'microservice/*'
