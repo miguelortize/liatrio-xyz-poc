@@ -1,7 +1,14 @@
 name: Bearer PR Check
 
 on:
+  push:
+    paths:
+      - 'microservice/**'
+    branches:
+      - main
   pull_request:
+    paths:
+      - 'microservice/**'
     types: [opened, synchronize, reopened]
 
 permissions:
@@ -11,20 +18,10 @@ permissions:
 jobs:
   rule_check:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./microservice/app
     steps:
       - uses: actions/checkout@v4
-      - uses: reviewdog/action-setup@v1
-        with:
-          reviewdog_version: latest
       - name: Bearer
         uses: bearer/bearer-action@v2
-        with:
-          format: rdjson
-          output: rd.json
-          diff: true
-      - name: Run reviewdog
-        if: always()
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cat rd.json | reviewdog -f=rdjson -reporter=github-pr-review
