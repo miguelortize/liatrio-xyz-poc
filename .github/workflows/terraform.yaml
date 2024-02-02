@@ -12,6 +12,14 @@ on:
       - 'terraform/**'
     branches: [ "main" ]
   pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'terraform/**'
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - closed
 
 permissions:
   contents: read
@@ -40,7 +48,6 @@ jobs:
       uses: 'google-github-actions/auth@v2'
       with:
         token_format: 'access_token'
-#        create_credentials_file: 'true'
         workload_identity_provider: 'projects/105688756382/locations/global/workloadIdentityPools/liatrio-xyz-poc/providers/github'
         service_account: 'wip-service-account@test-project-miguel.iam.gserviceaccount.com'
       
