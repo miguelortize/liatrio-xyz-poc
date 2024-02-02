@@ -156,8 +156,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      # Configure Workload Identity Federation and generate an access token.
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: 'projects/105688756382/locations/global/workloadIdentityPools/liatrio-xyz-poc/providers/github'
+          service_account: 'wip-service-account@test-project-miguel.iam.gserviceaccount.com'
+        
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: "1.7.2"
 
       - name: Terraform Init
         id: init
