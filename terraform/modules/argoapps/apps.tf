@@ -61,14 +61,14 @@ resource "helm_release" "argocd_apps" {
 
 }
 
-resource "time_sleep" "wait_60_seconds" {
+resource "time_sleep" "wait_240_seconds" {
   depends_on = [helm_release.argocd_apps]
 
-  create_duration = "60s"
+  create_duration = "240s"
 }
 
 data "kubernetes_service" "argocd_apps" {
-  depends_on = [time_sleep.wait_60_seconds]
+  depends_on = [time_sleep.wait_240_seconds]
   metadata {
     name      = "xyz-liatrio-demo"
     namespace = "default"

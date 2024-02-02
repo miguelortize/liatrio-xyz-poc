@@ -28,3 +28,7 @@ output "xyz_app_endpoint" {
   description = "Load Balancer for app deployed."
 }
 
+output "xyz_deployment_test" {
+  value       = module.deploy_xyz_apps.xyz_deployment_test
+  description = "Curl against app to test it works!."
+}
