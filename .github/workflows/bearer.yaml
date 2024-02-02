@@ -1,6 +1,7 @@
-name: Bearer PR Check
+name: Bearer Code Scan
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'microservice/**'
