@@ -36,6 +36,8 @@ permissions:
 jobs:
   terraform:
     name: 'Terraform'
+    if: ${{ github.event.inputs.action != 'Terraform_destroy' }}
+
     runs-on: ubuntu-latest
     environment: development
 
