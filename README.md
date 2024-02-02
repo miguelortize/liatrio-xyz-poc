@@ -57,6 +57,10 @@ kubernetes_cluster_name = "test-project-miguel-gke"
 project_id = "test-project-miguel"
 region = "us-central1"
 xyz_app_endpoint = "http://34.122.98.168:80"
+xyz_deployment_test = {
+  "message" = "Automate all the things!"
+  "timestamp" = 1706850034
+}
 ```
 
 Open the url for `xyz_app_endpoint` in your chrome and test the response.
