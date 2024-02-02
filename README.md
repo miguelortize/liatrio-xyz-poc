@@ -1,8 +1,12 @@
 # Liatrio XYZ Company PoC
 
-## Deployment Goal:
+## Google Resources Deployed:
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/GCP_infra.png)
+
+## CI-CD Resources Deployed:
+
+![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/CI-CD-Architecture.png)
 
 ## Deployment strategy:
 
@@ -40,19 +44,22 @@ Before you can provision a GKE cluster using Terraform, you need to ensure that 
 
 ```terraform apply```
 
+### Terraform should return outputs that look something like this
+
 ```
-# Terraform should return outputs that look something like this:
 # Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 
-# Outputs:
+ Outputs:
 
-# app_load_balancer_endpoint = "http://35.193.191.180:80"
-# kubernetes_cluster_host = "35.224.5.255"
-# kubernetes_cluster_name = "test-project-miguel-gke"
-# project_id = "test-project-miguel"
+argocd_load_balancer_endpoint = "http://35.194.12.138:80"
+kubernetes_cluster_host = "35.238.112.97"
+kubernetes_cluster_name = "test-project-miguel-gke"
+project_id = "test-project-miguel"
+region = "us-central1"
+xyz_app_endpoint = "http://34.122.98.168:80"
 ```
 
-Open the url for `app_load_balancer_endpoint` in your chrome and test the response.
+Open the url for `xyz_app_endpoint` in your chrome and test the response.
 
 ## Destroy your environment:
 
