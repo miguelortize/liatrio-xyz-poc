@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.6] - 24-02-01
 
+### Fixed
+
+- v0.0.6 App endpoint output was failing due to the helm chart not being completely deployed, added 'wait'.
+
 ### Removed
 
 - v0.0.6 Removed kubernetes_manifest as it does not support creation of CRDs during new deployment of GKE cluster [see here](https://github.com/hashicorp/terraform-provider-kubernetes/issues/1775)
