@@ -8,9 +8,6 @@ on:
     paths:
       - 'microservice/**'
     branches: [ "main" ]
-  pull_request:
-    paths:
-      - 'microservice/**'
 
 env:
   GAR_LOCATION: us-central1 # TODO: update region of the Artifact Registry
