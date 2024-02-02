@@ -7,12 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- v0.0.8 Add GKE load balancer for ArgoCD
+- v0.0.8 Add GKE load balancer for Argo Applications
+- v0.0.8 Update documentation.
+- v0.0.9 Add cucumber tests on Java.
+
+## [0.0.7] - 2024-02-01
+
+### Fixed
+
+- v0.0.7 Removed unnecessary runs on bearer, build and terraform workflow.
+
+### Changed
+
+- v0.0.7 Adjustment on all pipeline triggers.
+
+### Added
+
 - v0.0.7 Add backend for terraform apply.
 - v0.0.7 Add pipeline for terraform apply.
-- v0.0.7 Add GKE load balancer for ArgoCD
-- v0.0.7 Add GKE load balancer for Argo Applications
-- v0.0.7 Update documentation.
-- v0.0.7 Adjustment on all pipeline triggers.
 
 ## [0.0.6] - 2024-02-01
 
