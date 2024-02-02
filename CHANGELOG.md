@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- v0.0.8 Add GKE load balancer for ArgoCD
-- v0.0.8 Add GKE load balancer for Argo Applications
+- v0.0.9 Add GKE load balancer for ArgoCD
+- v0.0.9 Add GKE load balancer for Argo Applications
+- v0.0.10 Add cucumber tests on Java.
+- v0.0.10 Add tfsec
+
+## [0.0.8] - 2024-02-01
+
+### Added
+
 - v0.0.8 Update documentation.
-- v0.0.9 Add cucumber tests on Java.
-- v0.0.9 Add tfsec
 
 ## [0.0.7] - 2024-02-01
 
