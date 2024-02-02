@@ -50,7 +50,7 @@ config:
 
   registries: 
     - name: Google Container Registry
-      api_url: https://us-central1-docker.pkg.dev/test-project-miguel/xyz-liatrio-poc
+      api_url: https://us-central1-docker.pkg.dev/test-project-miguel/xyz-liatrio-poc-i-am-updated
       prefix: gcr.io
       default: true
 
