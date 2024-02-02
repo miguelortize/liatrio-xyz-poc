@@ -9,10 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - v0.0.7 Add backend for terraform apply.
 - v0.0.7 Add pipeline for terraform apply.
-- v0.0.7 Add 
+- v0.0.7 Add GKE load balancer for ArgoCD
+- v0.0.7 Add GKE load balancer for Argo Applications
 - v0.0.7 Update documentation.
 
-## [0.0.6] - 24-02-01
+## [0.0.6] - 2024-02-01
 
 ### Fixed
 
@@ -31,13 +32,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - v0.0.6 ArgoCD-Apps to deploy apps consistenly.
 - v0.0.6 Output service endpoint for testing of app.
 
-## [0.0.5] - 24-02-01
+## [0.0.5] - 2024-02-01
 
 ### Added
 
 - v0.0.5 Deploy Applications from Terraform.
 
-## [0.0.4] - 24-02-01
+## [0.0.4] - 2024-02-01
 
 ### Added
 
