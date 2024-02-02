@@ -7,6 +7,14 @@ name: 'Terraform'
 
 on:
   workflow_dispatch:
+    inputs:
+      # Terraform action you want to perform
+      action:
+        description: 'Terraform Action to Perform'
+        type: choice
+        options:
+        - Terraform_apply
+        - Terraform_destroy
   push:
     paths:
       - 'terraform/**'
@@ -78,7 +86,7 @@ jobs:
       run: terraform plan -no-color -input=false
 
     - uses: actions/github-script@v6
-      if: github.event.pull_request.merged != true
+      if: github.event_name == 'pull_request'
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
@@ -96,7 +104,7 @@ jobs:
           ${{ steps.plan.outputs.stdout }}
           \`\`\`
           </details>
-          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`./terraform\`, Workflow: \`${{ github.workflow }}\`*`;
           github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
@@ -105,7 +113,54 @@ jobs:
           })
       
       # On push to "main", build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    # - name: Terraform Apply
-    #   if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-    #   run: terraform apply -auto-approve -input=false
+    - name: Terraform Apply
+      id: apply
+      if: github.event.pull_request.merged == true
+      run: terraform apply -auto-approve -input=false
+    - uses: actions/github-script@v6
+      if: github.event.pull_request.merged == true
+      with:
+        script: |
+          const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+          #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+          #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+          #### Terraform Apply 📖\`${{ steps.apply.outcome }}\`
+          <details><summary>Show Apply</summary>
+          \`\`\`\n
+          ${{ steps.apply.outputs.stdout }}
+          \`\`\`
+          </details>
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`./terraform\`, Workflow: \`${{ github.workflow }}\`*`;
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          })
+
+  terraform_destroy:
+    name: "Terraform_destroy"
+    if: ${{ github.event.inputs.action == 'Terraform_destroy' }}
+    runs-on: ubuntu-latest
+    environment: development
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        working-directory: ./terraform
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve
