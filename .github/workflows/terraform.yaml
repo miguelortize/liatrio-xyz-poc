@@ -13,6 +13,7 @@ on:
         description: 'Terraform Action to Perform'
         type: choice
         options:
+        - Terraform_plan
         - Terraform_apply
         - Terraform_destroy
   push:
@@ -117,7 +118,9 @@ jobs:
       # On push to "main", build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
       id: apply
-      if: github.event.pull_request.merged == true
+      if: |
+        github.event.pull_request.merged == true ||
+        ${{ github.event.inputs.action == 'Terraform_apply' }}
       run: terraform apply -auto-approve -input=false
     - uses: actions/github-script@v6
       if: github.event.pull_request.merged == true
