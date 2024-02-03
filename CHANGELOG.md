@@ -14,9 +14,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - v0.0.12 Add cucumber tests on Java.
 - v0.0.12 Add tfsec
 
+## [0.0.10] - 2024-02-02
+
+### Changed
+
+- v0.0.10 Update README for deployment of cluster.
+- v0.0.10 Update triggers for terraform pipeline to deploy manually through GHA.
+- v0.0.10 Update triggers for terraform pipeline to destroy manually.
+- v0.0.10 Update triggers for terraform pipeline to plan from PR.
+
 ## [0.0.9] - 2024-02-01
 
-- v0.0.9 Added automated tests from Terraform.
+- v0.0.9 Added automated tests for Terraform.
 
 ## [0.0.8] - 2024-02-01
 

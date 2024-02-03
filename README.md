@@ -4,7 +4,7 @@
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/GCP_infra.png)
 
-## CI-CD Resources Deployed:
+## CI-CD workflow:
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/CI-CD-Architecture.png)
 
@@ -12,37 +12,109 @@
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/terraform_liatrio.png)
 
+## Folder Structure
+
+```
+.
+.github
+└── workflows
+│   ├── bearer.yaml
+│   ├── build.yaml
+│   └── terraform.yaml
+│   # GHA to run automated build of cluster, code scanning, and terraform management.
+├── CHANGELOG.md
+├── README.md
+├── charts
+│   ├── xyz-liatrio
+│   └── ...
+│   # Charts to deploy our example app and other apps.
+├── img
+│   ├── CI-CD-Architecture.png
+│   └── ...
+│   # Images related to documentation 
+├── microservice
+│   └── app
+│   # App logic, including Dockerfile, code testing, local testing instructions.
+├── terraform
+└── # Terraform logic to build GKE cluster and Bootstrap it with required charts and configurations.
+    ├── backend.tf
+    ├── main.tf
+    ├── modules
+    │   ├── argoapps
+    │   │   ├── apps
+    │   │   │   └── values.yaml
+    │   │   ├── apps.tf
+    │   │   ├── outputs.tf
+    │   │   ├── tests.tf
+    │   │   └── versions.tf
+    │   ├── bootstrap
+    │   │   ├── bootstrap.tf
+    │   │   ├── outputs.tf
+    │   │   └── values
+    │   │       └── image_updater.yaml
+    │   └── infrastructure
+    │       ├── gke.tf
+    │       ├── outputs.tf
+    │       ├── versions.tf
+    │       └── vpc.tf
+    ├── outputs.tf
+    ├── terraform.tfstate
+    ├── terraform.tfstate.backup
+    ├── terraform.tfvars
+    └── variables.tf
+```
+
+
 ## Prerequisite:
+In version v0.0.9 and prior, we were deploying resources from our local environment, from version v0.0.10 we start deploying from the Terraform Github Action, we will need to setup our Workflow Identity Federation to run cluster creation from GHA, please follow the [Setting up Workload Identity Federation for GitHub Actions](https://github.com/miguelortize/liatrio-xyz-poc/wiki/Create-Workload-Identity-Provider) to setup your Service Account and right permissions to deploy through code.
+
 Before you can provision a GKE cluster using Terraform, you need to ensure that you have the following prerequisites in place:
 
-- Google Cloud Platform (GCP) Account: GCP account with the necessary permissions to create and manage resources.
-- Google Cloud SDK (gcloud) : which provides the command-line tools for interacting with GCP services.
-- Enable Google Kubernetes Engine (GKE) API: Enable the GKE API for your project. You can enable it either through the Google Cloud Console or by running the following command with the gcloud CLI.
-- Install Terraform and kubectl: Install [Terraform](https://terraform.io/downloads.html) and optionally [kubectl](https://kubernetes.io/docs/tasks/tools) on your local machine.
-- Install [Google cloud SDK](https://formulae.brew.sh/cask/google-cloud-sdk)
 - Clone Github Repo
 ```git clone https://github.com/miguelortize/liatrio-xyz-poc.git```
+- Edit the .github/workflow/teraform.yaml workflow authentication auth steps so that you can setup your `project`, `provider`, and `service account`, if you don't have them yet, please create them following the "Prerequisites" section.
 
-## Setup your GCP account and access.
-
-```gcloud components install gke-gcloud-auth-plugin```
-
-```gcloud init```
-
-```gcloud auth application-default login```
-
-```gcloud services enable container.googleapis.com --project=PROJECT_ID```
-
+```
+    # Configure Workload Identity Federation and generate an access token.
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v2'
+      with:
+        token_format: 'access_token'
+        workload_identity_provider: 'projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<WORKLOAD_IDENTITY_POOL>/providers/<PROVIDER>'
+        service_account: '<SERVICE_ACCOUNT>@<PROJECT_NAME>.iam.gserviceaccount.com'
+```
 
 ## Deploy your environment and app.
 
-```cd terraform/```
+Currently, deployment of our environment is managed through [workflow_dispatch](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch), this is to facilitate the creation and destruction of resources, in the future, we will only create resources through merging PRs to main.
 
-```terraform init```
+- Clone this repo.
 
-```terraform plan```
+```
+git clone https://github.com/miguelortize/liatrio-xyz-poc.git
+```
 
-```terraform apply```
+- Update the tfvars to match the project you created.
+
+```
+vi ./terraform/terraform.tfvars
+# Update and save.
+
+git checkout -b "create_my_cluster"
+
+git commit -m "Create new cluster."
+
+git push
+```
+
+This will create a PR and will run a terraform plan on the given project, if all permissions are setup properly, it won't show any errors.
+
+- Ask for assistance to merge your PR.
+
+- Once you ensured your accesses are working for your Service Account, go to the [Terraform](https://github.com/miguelortize/liatrio-xyz-poc/actions/workflows/terraform.yaml) workflow run `Terraform_apply`
+
+![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/terraform_apply.png)
 
 ### Terraform should return outputs that look something like this
 
@@ -67,11 +139,24 @@ Open the url for `xyz_app_endpoint` in your chrome and test the response.
 
 ## Destroy your environment:
 
-```terraform destroy```
+- Return to the Terraform workflow and run a `Terraform_destroy`
+
+![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/terraform_destroy.png)
 
 
 ### Optional to get the kubernetes login to your local:
-```gcloud container clusters get-credentials $(terraform output -raw kubernetes_cluster_name) --region $(terraform output -raw region)```
+
+```
+# Use the value from your project_id for K8S_CLUSTER and add the suffix -gke
+K8S_CLUSTER=test-project-miguel-gke
+REGION=us-central1
+
+gcloud auth application-default login
+
+gcloud services enable container.googleapis.com --project=PROJECT_NAME
+
+gcloud container clusters get-credentials ${K8S_CLUSTER} --region ${REGION}```
+```
 
 ### Optional to login to the Admin page of ArgoCD
 ```kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d```
