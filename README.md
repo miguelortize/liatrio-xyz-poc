@@ -163,7 +163,7 @@ gcloud auth application-default login
 
 gcloud services enable container.googleapis.com --project=${PROJECT_NAME}
 
-gcloud container clusters get-credentials ${K8S_CLUSTER} --region ${REGION}```
+gcloud container clusters get-credentials ${K8S_CLUSTER} --region ${REGION}
 ```
 
 ### Optional to login to the Admin page of ArgoCD
