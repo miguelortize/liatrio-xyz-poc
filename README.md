@@ -7,7 +7,11 @@
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/GCP_infra.png)
 
-## CI-CD workflow:
+## CI workflow:
+
+![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/build-and-test-wf.jpg)
+
+## CD workflow:
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/CI-CD-Architecture.png)
 
