@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - v0.0.11 Removed triggers for terraform pipeline to apply manually in favor of 'apply' on branch.
 
+### Changed
+
+- 0.0.11 Updated README.
+
 ### Added
 
 - v0.0.11 Add GCS backend for terraform apply.

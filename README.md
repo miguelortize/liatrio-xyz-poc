@@ -46,6 +46,7 @@
     │   ├── argoapps
     │   │   ├── apps
     │   │   │   └── values.yaml
+    │   │   │       # Onboard your Applications to deploy here!
     │   │   ├── apps.tf
     │   │   ├── outputs.tf
     │   │   ├── tests.tf
@@ -55,6 +56,7 @@
     │   │   ├── outputs.tf
     │   │   └── values
     │   │       └── image_updater.yaml
+    │   │           # Add your chart values and configurations here!
     │   └── infrastructure
     │       ├── gke.tf
     │       ├── outputs.tf
@@ -167,7 +169,9 @@ gcloud container clusters get-credentials ${K8S_CLUSTER} --region ${REGION}
 ```
 
 ### Optional to login to the Admin page of ArgoCD
-```kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d```
+```
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
 
 Authentication and Credentials: Configure authentication for Terraform to access your GCP account. You can use either Application Default Credentials (ADC) or a Service Account key file
 
