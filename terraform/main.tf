@@ -4,7 +4,7 @@ module "deploy_xyz_infrastructure" {
   source       = "./modules/infrastructure"
   project_id   = var.project_id
   region       = var.region
-  cluster_name = "${var.project_id}-gke"
+  cluster_name = "${var.project_id}-gke-test"
 }
 
 module "deploy_xyz_bootstrap" {
