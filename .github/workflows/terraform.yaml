@@ -114,7 +114,7 @@ jobs:
     - name: Terraform Apply
       id: apply
       if: github.event.pull_request.merged == true
-      run: terraform apply -auto-approve -input=false
+      run: terraform apply -no-color -auto-approve -input=false
     - uses: actions/github-script@v6
       if: github.event.pull_request.merged == true
       with:

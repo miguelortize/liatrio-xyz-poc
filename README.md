@@ -119,7 +119,9 @@ If all permissions are setup properly, it won't show any errors.
 
 - Ask for assistance to merge your PR.
 
-- 
+- The creation of the resources will take around 30 minutes, so we recomend you to prepare some cofee in the meantime and take a small break!
+
+![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/gha-apply-output.png)
 
 ### Terraform should return outputs that look something like this
 
@@ -144,7 +146,7 @@ Open the url for `xyz_app_endpoint` in your chrome and test the response.
 
 ## Destroy your environment:
 
-- Return to the Terraform workflow and run a `Terraform_destroy`
+- Return to the [Terraform workflow](https://github.com/miguelortize/liatrio-xyz-poc/actions/workflows/terraform.yaml) and run a `Terraform_destroy`
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/terraform_destroy.png)
 
