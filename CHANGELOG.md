@@ -7,12 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- v0.0.10 Add GCS backend for terraform apply.
-- v0.0.10 Adjust code to deploy terraform from codebase.
-- v0.0.11 Add GKE load balancer for ArgoCD
-- v0.0.11 Add GKE load balancer for Argo Applications
-- v0.0.12 Add cucumber tests on Java.
-- v0.0.12 Add tfsec
+- v0.0.12 Add GKE load balancer for ArgoCD
+- v0.0.12 Add GKE load balancer for Argo Applications
+- v0.0.13 Add cucumber tests on Java.
+- v0.0.13 Add tfsec
+
+## [0.0.11] - 2024-03-02
+
+### Fixed
+
+- v0.0.11 On merge, two workflows started for Terraform, cleaned up.
+
+### Removed
+
+- v0.0.11 Removed triggers for terraform pipeline to apply manually in favor of 'apply' on branch.
+
+### Added
+
+- v0.0.11 Add GCS backend for terraform apply.
+- v0.0.11 On PR for terraform changes, comments will show infrastructure changes.
+- v0.0.11 On merge of branches to main, terraform will apply infrastructure.
 
 ## [0.0.10] - 2024-02-02
 
