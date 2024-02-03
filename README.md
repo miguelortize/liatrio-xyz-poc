@@ -9,7 +9,7 @@
 
 ## CI workflow:
 
-![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/build-and-test-wf.jpg)
+![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/build-and-test-wf.png)
 
 ## CD workflow:
 
