@@ -165,8 +165,4 @@ Authentication and Credentials: Configure authentication for Terraform to access
 
 ## Possible errors
 
-You might encounter that the instance is trying to download a local helm chart, adjust this by running:
-
-```
-helm repo update
-```
+It might be possible that due to slowness in the creation of the helm resources, the data source that provides the app service IP will fail, you might need to re run the apply once again if this happens.
