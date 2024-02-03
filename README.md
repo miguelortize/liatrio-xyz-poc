@@ -1,5 +1,8 @@
 # Liatrio XYZ Company PoC
 
+## Documentation
+- [Setting up Workload Identity Federation for GitHub Actions](https://github.com/miguelortize/liatrio-xyz-poc/wiki/Create-Workload-Identity-Provider)
+
 ## Google Resources Deployed:
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/GCP_infra.png)
