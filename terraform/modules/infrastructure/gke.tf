@@ -24,7 +24,7 @@ data "google_container_engine_versions" "gke_version" {
 }
 
 resource "google_container_cluster" "primary" {
-  name     = "${var.project_id}-gke"
+  name     = "${var.cluster_name}-gke"
   location = var.region
 
   # We can't create a cluster with no node pool defined, but we want to only use

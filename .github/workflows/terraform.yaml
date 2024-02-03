@@ -15,10 +15,6 @@ on:
         options:
         - Terraform_plan
         - Terraform_destroy
-  push:
-    paths:
-      - 'terraform/**'
-    branches: [ "main" ]
   pull_request:
     paths:
       - 'terraform/**'

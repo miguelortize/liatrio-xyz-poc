@@ -15,6 +15,10 @@ variable "gke_num_nodes" {
   description = "number of gke nodes"
 }
 
+variable "cluster_name" {
+  description = "The name of the GKE cluster"
+}
+
 # VPC Variables:
 
 variable "project_id" {

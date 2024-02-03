@@ -104,20 +104,22 @@ git clone https://github.com/miguelortize/liatrio-xyz-poc.git
 vi ./terraform/terraform.tfvars
 # Update and save.
 
-git checkout -b "create_my_cluster"
+git checkout -b "create-my-cluster"
 
 git commit -m "Create new cluster."
 
-git push
+git push --set-upstream origin create-my-cluster
 ```
 
-This will create a PR and will run a terraform plan on the given project, if all permissions are setup properly, it won't show any errors.
+- Create a PR from your given branch to main, this will trigger a new github action and will automatically run a `terraform plan` for your resources, 
+
+If all permissions are setup properly, it won't show any errors.
+
+![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/gha-output.png)
 
 - Ask for assistance to merge your PR.
 
-- Once you ensured your accesses are working for your Service Account, go to the [Terraform](https://github.com/miguelortize/liatrio-xyz-poc/actions/workflows/terraform.yaml) workflow run `Terraform_apply`
-
-![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/terraform_apply.png)
+- 
 
 ### Terraform should return outputs that look something like this
 
@@ -153,10 +155,11 @@ Open the url for `xyz_app_endpoint` in your chrome and test the response.
 # Use the value from your project_id for K8S_CLUSTER and add the suffix -gke
 K8S_CLUSTER=test-project-miguel-gke
 REGION=us-central1
+PROJECT_NAME=test-project-miguel-gke
 
 gcloud auth application-default login
 
-gcloud services enable container.googleapis.com --project=PROJECT_NAME
+gcloud services enable container.googleapis.com --project=${PROJECT_NAME}
 
 gcloud container clusters get-credentials ${K8S_CLUSTER} --region ${REGION}```
 ```
