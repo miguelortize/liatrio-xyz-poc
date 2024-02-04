@@ -7,6 +7,10 @@
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/GCP_infra.png)
 
+## Deployment strategy:
+
+![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/terraform_liatrio.png)
+
 ## CI workflow:
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/build-and-test-wf.png)
@@ -14,10 +18,6 @@
 ## CD workflow:
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/CI-CD-Architecture.png)
-
-## Deployment strategy:
-
-![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/terraform_liatrio.png)
 
 ## Folder Structure
 
