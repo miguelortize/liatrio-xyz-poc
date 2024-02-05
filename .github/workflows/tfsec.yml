@@ -7,8 +7,12 @@ name: Tfsec
 
 on:
   push:
+    paths:
+      - 'terraform/**'
     branches: [ "main" ]
   pull_request:
+    paths:
+      - 'terraform/**'
     branches: [ "main" ]
   schedule:
     - cron: '32 2 * * 6'
