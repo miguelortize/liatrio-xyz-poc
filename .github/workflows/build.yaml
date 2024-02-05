@@ -1,6 +1,6 @@
 # This workflow will build a docker container and publish it to Google Container Registry.
 
-name: Build and Push to Artifact Registry
+name: Build, Test and Push to Artifact Registry
 
 on:
   workflow_dispatch:
@@ -48,6 +48,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+        
+    - name: Unit test with Maven
+      run: mvn test
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
