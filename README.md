@@ -11,13 +11,39 @@
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/terraform_liatrio.png)
 
+A platform engineer will create a PR where the cluster to be created is defined, the PR will trigger GHA (GH actions) that will run a test to ensure the change introduced is stable.
+
+Upon Merge, GHA will tun a Terraform workflow that will deploy in the following structure:
+
+> 1.a) GCP resources such as VPN and GKE cluster will be created and wait until the Kubernetes cluster is fully functional, this will return credentials for access that will be injected into the 'Bootstrap' module.
+
+> 2.a) The bootstrap module will deploy ArgoCD and ArgoCD Image Updater and ensure these two are working as expected, it will also connect ArgoCD to the Github repository where the `helm charts`
+
+> 2.b) The 'ArgoApps' module will be deployed as well which deploys the apps are defined and based on that will create the resources required on Kubernetes.
+
+> 2.c) ArgoCD Image updater will connect to the Artifact Registry and pull the images based on the specified deployment strategy and method on the App annotations, this is how your continous deployment will know which version of the app to deploy.
+
+> 3.a) Validation will be made with a curl command to the app to ensure that things are working as expected.
+
 ## CI workflow:
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/build-and-test-wf.png)
 
+A developer will introduce a new change to the app.
+
+Upon commit made on the `microservice` folder a github action will be triggered and this will first run Maven unit tests and build of the Java dependencies.
+
+A /target folder will be created with the code .jar app to be deployed, this will be built and tagged by Docker and finally pushed into the Artifact Registry, our approach is based on image Digest, so everything will be tagged based on the environment defined at build time.
+
 ## CD workflow:
 
 ![](https://github.com/miguelortize/liatrio-xyz-poc/blob/main/img/CI-CD-Architecture.png)
+
+Case 1:
+When a developer introduces a change on the code, a new digest of the image will be created and tagged based on environment, this will trigger Image Updater based on the [strategy](https://argocd-image-updater.readthedocs.io/en/stable/basics/update-strategies/#supported-update-strategies) defined on the annotations of the app CRD, which in our case is based on [digest](https://argocd-image-updater.readthedocs.io/en/stable/basics/update-strategies/#strategy-digest) and rollout will be managed by the deployment strategy.
+
+Case 2:
+When a platform engineer introduces a change on the /charts section, ArgoCD will look at the chart changes and attempt to replicate them, if anything fails, the `Sync` will show errors, if all goes as expected, it will automatically sync with the environment. You can [disable this feature](https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/).
 
 ## Folder Structure
 
