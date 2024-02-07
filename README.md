@@ -15,15 +15,15 @@ A platform engineer will create a PR where the cluster to be created is defined,
 
 Upon Merge, GHA will tun a Terraform workflow that will deploy in the following structure:
 
-> 1.a) GCP resources such as VPN and GKE cluster will be created and wait until the Kubernetes cluster is fully functional, this will return credentials for access that will be injected into the 'Bootstrap' module.
+- 1.a) GCP resources such as VPN and GKE cluster will be created and wait until the Kubernetes cluster is fully functional, this will return credentials for access that will be injected into the 'Bootstrap' module.
 
-> 2.a) The bootstrap module will deploy ArgoCD and ArgoCD Image Updater and ensure these two are working as expected, it will also connect ArgoCD to the Github repository where the `helm charts`
+- 2.a) The bootstrap module will deploy ArgoCD and ArgoCD Image Updater and ensure these two are working as expected, it will also connect ArgoCD to the Github repository where the `helm charts`
 
-> 2.b) The 'ArgoApps' module will be deployed as well which deploys the apps are defined and based on that will create the resources required on Kubernetes.
+- 2.b) The 'ArgoApps' module will be deployed as well which deploys the apps are defined and based on that will create the resources required on Kubernetes.
 
-> 2.c) ArgoCD Image updater will connect to the Artifact Registry and pull the images based on the specified deployment strategy and method on the App annotations, this is how your continous deployment will know which version of the app to deploy.
+- 2.c) ArgoCD Image updater will connect to the Artifact Registry and pull the images based on the specified deployment strategy and method on the App annotations, this is how your continous deployment will know which version of the app to deploy.
 
-> 3.a) Validation will be made with a curl command to the app to ensure that things are working as expected.
+- 3.a) Validation will be made with a curl command to the app to ensure that things are working as expected.
 
 ## CI workflow:
 
