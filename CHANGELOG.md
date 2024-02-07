@@ -7,10 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- v0.0.12 Add GKE load balancer for ArgoCD
-- v0.0.12 Add GKE load balancer for Argo Applications
-- v0.0.13 Add cucumber tests on Java.
-- v0.0.13 Add tfsec
+- v0.0.12 Add GKE load balancer for ArgoCD.
+- v0.0.12 Add GKE load balancer for Argo Applications.
+- v0.0.12 Enable Slack and email notifications.
+- v0.0.13 Sepparate the code module from the infrastructure module to achieve Semantic Versioning on our code.
+- v0.0.14 Create [concurrency groups](https://docs.github.com/en/actions/using-jobs/using-concurrency) that will lock our VCS behavior when it comes to merge and GHA strategies.
+- v0.0.15 Move deployments into tags and releases.
+- v0.0.16 Implement [Identity-Aware Proxy](https://cloud.google.com/security/products/iap?hl=en)
+- v0.0.17 Enable costs review upon PR creation for delpoyment cost assessment.
 
 ## [0.0.11] - 2024-03-02
 
